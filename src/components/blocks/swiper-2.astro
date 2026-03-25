@@ -1,0 +1,122 @@
+---
+import { Button } from "@/components/ui/button"
+import { Icon } from "@/components/ui/icon"
+import { Image } from "@/components/ui/image"
+import { List, ListItem } from "@/components/ui/list"
+import {
+  Section,
+  SectionActions,
+  SectionContent,
+  SectionMedia,
+  SectionProse,
+  SectionSplit,
+} from "@/components/ui/section"
+import {
+  Swiper,
+  SwiperContent,
+  SwiperPagination,
+  SwiperSlide,
+} from "@/components/ui/swiper"
+import {
+  Tile,
+  TileContent,
+  TileDescription,
+  TileMedia,
+  TileTitle,
+} from "@/components/ui/tile"
+
+interface Props {
+  class?: string
+  id?: string
+  list?: string[]
+  links?: {
+    icon?: string
+    text?: string
+    href?: string
+    target?: string
+  }[]
+  items?: {
+    title?: string
+    description?: string
+    image?: {
+      src: string
+      alt: string
+    }
+  }[]
+}
+
+const { class: className, id, list, links, items } = Astro.props
+---
+
+<Section class={className} id={id}>
+  <SectionSplit class="lg:items-center">
+    <SectionContent>
+      <SectionProse class="text-balance" size="lg">
+        <slot />
+      </SectionProse>
+      <List>
+        {
+          list?.map((item) => (
+            <ListItem>
+              <Icon name="check" />
+              {item}
+            </ListItem>
+          ))
+        }
+      </List>
+      <SectionActions>
+        {
+          links?.map(({ icon, text, ...link }, i) => (
+            <Button
+              variant={i === 0 ? "default" : "secondary"}
+              size="lg"
+              {...link}
+            >
+              {icon && <Icon name={icon} />}
+              {text}
+            </Button>
+          ))
+        }
+      </SectionActions>
+    </SectionContent>
+    <SectionMedia>
+      <Swiper
+        class="w-full"
+        options={{
+          slidesPerView: 1,
+          spaceBetween: 24,
+          speed: 500,
+          autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          },
+          loop: true,
+        }}
+      >
+        <SwiperContent>
+          {
+            items?.map(({ title, description, image }) => (
+              <SwiperSlide>
+                <Tile variant="floating" class="h-full rounded-lg">
+                  <TileMedia class="overflow-hidden rounded-lg">
+                    <Image
+                      sizes="(min-width: 1536px) 640px, (min-width: 1024px) 50vw, 100vw"
+                      class="aspect-4/3 w-full object-cover"
+                      {...image}
+                    />
+                  </TileMedia>
+                  <TileContent>
+                    <TileTitle>{title}</TileTitle>
+                    <TileDescription>{description}</TileDescription>
+                  </TileContent>
+                </Tile>
+              </SwiperSlide>
+            ))
+          }
+        </SwiperContent>
+        <SwiperPagination />
+      </Swiper>
+    </SectionMedia>
+  </SectionSplit>
+</Section>

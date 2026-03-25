@@ -37,7 +37,7 @@ sections:
         href: /blocks/products/
       - text: Reviews (5)
         href: /blocks/reviews/
-      - text: Swiper (1)
+      - text: Swiper (2)
         href: /blocks/swiper/
       - text: Services (7)
         href: /blocks/services/

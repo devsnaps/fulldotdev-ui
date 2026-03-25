@@ -2329,6 +2329,23 @@
       ]
     },
     {
+      "name": "swiper-3",
+      "type": "registry:block",
+      "registryDependencies": [
+        "@fulldev/button",
+        "@fulldev/icon",
+        "@fulldev/image",
+        "@fulldev/section",
+        "@fulldev/swiper"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/swiper-3.astro",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
       "name": "services-1",
       "type": "registry:block",
       "registryDependencies": [
@@ -2573,6 +2590,7 @@
         "@fulldev/reviews-5",
         "@fulldev/swiper-1",
         "@fulldev/swiper-2",
+        "@fulldev/swiper-3",
         "@fulldev/services-1",
         "@fulldev/services-2",
         "@fulldev/services-3",

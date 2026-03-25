@@ -1,0 +1,157 @@
+---
+import logo from "@/assets/logo-fulldev.svg"
+
+import { Button } from "@/components/ui/button"
+import { Icon } from "@/components/ui/icon"
+import { Image } from "@/components/ui/image"
+import { Logo, LogoImage, LogoText } from "@/components/ui/logo"
+import {
+  Section,
+  SectionActions,
+  SectionContent,
+  SectionMedia,
+  SectionProse,
+  SectionSplit,
+} from "@/components/ui/section"
+import {
+  Swiper,
+  SwiperContent,
+  SwiperPagination,
+  SwiperSlide,
+} from "@/components/ui/swiper"
+import { Tile, TileContent, TileDescription } from "@/components/ui/tile"
+
+interface Props {
+  class?: string
+  id?: string
+  title?: string
+  subtitle?: string
+  description?: string
+  links?: {
+    icon?: string
+    text?: string
+    href?: string
+    target?: string
+  }[]
+  logos?: {
+    text?: string
+  }[]
+  items?: {
+    title?: string
+    image?: {
+      src: string
+      alt: string
+    }
+  }[]
+  images?: {
+    src: string
+    alt: string
+  }[]
+}
+
+const { class: className, id, links, items, images } = Astro.props
+
+const slides =
+  items?.map((item) => ({
+    title: item.title,
+    image: item.image,
+  })) ??
+  images?.map((image) => ({
+    title: image.alt,
+    image,
+  })) ??
+  []
+---
+
+<Section class={className} id={id}>
+  <SectionSplit class="gap-8 lg:flex lg:items-center lg:gap-12">
+    <SectionContent class="lg:w-[70%]">
+      <SectionProse class="text-balance" size="lg">
+        <slot />
+      </SectionProse>
+      <Tile>
+        <TileContent>
+          <TileDescription
+            class="text-muted-foreground text-sm font-medium italic"
+          >
+            Powered by
+          </TileDescription>
+          <Logo>
+            <LogoImage src={logo} alt="Logo" />
+            <LogoText>fulldev/ui</LogoText>
+          </Logo>
+        </TileContent>
+      </Tile>
+      <SectionActions class="mt-10">
+        {
+          links?.map(({ icon, text, ...link }, i) => (
+            <Button
+              variant={i === 0 ? "default" : "secondary"}
+              size="lg"
+              {...link}
+            >
+              {icon && <Icon name={icon} />}
+              {text}
+            </Button>
+          ))
+        }
+      </SectionActions>
+    </SectionContent>
+    <SectionMedia class="flex flex-col gap-0 lg:w-[30%]">
+      <Tile>
+        <TileContent>
+          <TileDescription
+            class="text-muted-foreground text-sm font-medium italic"
+          >
+            Built for…
+          </TileDescription>
+        </TileContent>
+      </Tile>
+      <Swiper
+        class="swiper-hero relative mt-0 min-h-104 overflow-clip"
+        options={{
+          loop: true,
+          autoplay: { delay: 4000, disableOnInteraction: false },
+          grabCursor: true,
+          slidesPerView: 1,
+          spaceBetween: 12,
+          speed: 500,
+          keyboard: { enabled: true, onlyInViewport: true },
+        }}
+      >
+        <SwiperContent>
+          {
+            slides.map((slide) => (
+              <SwiperSlide>
+                <figure>
+                  <div class="h-80 [clip-path:polygon(0%_4%,100%_0%,100%_100%,0%_96%)] md:h-140 lg:h-100 xl:h-90">
+                    <Image
+                      src={slide.image?.src}
+                      alt={slide.image?.alt ?? slide.title ?? "Slide"}
+                      loading="eager"
+                      class="size-full object-cover"
+                    />
+                  </div>
+                  <figcaption class="mt-3 w-full translate-y-0 opacity-100 transition-all duration-300 md:translate-y-5 md:opacity-0">
+                    <div class="bg-border h-px w-full" />
+                    <span class="text-foreground block pt-2 text-sm font-medium">
+                      {slide.title}
+                    </span>
+                  </figcaption>
+                </figure>
+              </SwiperSlide>
+            ))
+          }
+        </SwiperContent>
+        <SwiperPagination />
+      </Swiper>
+    </SectionMedia>
+  </SectionSplit>
+</Section>
+
+<style is:global>
+  .swiper-hero .swiper-slide-active figcaption {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

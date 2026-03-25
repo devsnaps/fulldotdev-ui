@@ -1,0 +1,114 @@
+---
+import type { HTMLAttributes } from "astro/types"
+import type { SwiperOptions } from "swiper/types"
+
+import { cn } from "@/lib/utils"
+
+interface Props extends Omit<HTMLAttributes<"div">, "data-options"> {
+  options?: SwiperOptions
+  orientation?: "horizontal" | "vertical"
+}
+
+const {
+  class: className,
+  options,
+  orientation = "horizontal",
+  ...props
+} = Astro.props
+
+const optionsJson = options ? JSON.stringify(options) : ""
+---
+
+<div
+  class={cn("swiper relative group/swiper w-full overflow-visible", className)}
+  data-slot="swiper"
+  data-orientation={orientation}
+  data-options={optionsJson || undefined}
+  {...props}
+>
+  <slot />
+</div>
+
+<script>
+  import Swiper from "swiper"
+  import { A11y, Autoplay, Keyboard, Navigation, Pagination } from "swiper/modules"
+
+  const defaultOptions = {
+    slidesPerView: 1,
+    spaceBetween: 16,
+    speed: 400,
+    watchOverflow: true,
+    a11y: { enabled: true },
+    keyboard: { enabled: true },
+  }
+
+  const parseOptions = (value) => {
+    if (!value) return {}
+    try {
+      return JSON.parse(value)
+    } catch {
+      return {}
+    }
+  }
+
+  document.querySelectorAll("[data-slot='swiper']").forEach((el) => {
+    if (el.dataset.swiperInitialized === "true") return
+    el.dataset.swiperInitialized = "true"
+
+    const prevEl = el.querySelector("[data-slot='swiper-previous']")
+    const nextEl = el.querySelector("[data-slot='swiper-next']")
+    const paginationEl = el.querySelector("[data-slot='swiper-pagination']")
+
+    const orientation = el.getAttribute("data-orientation") || "horizontal"
+    const customOptions = parseOptions(el.getAttribute("data-options"))
+
+    const options = {
+      ...defaultOptions,
+      ...customOptions,
+      direction: orientation === "vertical" ? "vertical" : "horizontal",
+      modules: [A11y, Autoplay, Keyboard, Navigation, Pagination],
+    }
+
+    if (prevEl && nextEl && customOptions.navigation !== false) {
+      options.navigation = { prevEl, nextEl }
+    }
+
+    if (paginationEl && customOptions.pagination !== false) {
+      options.pagination = { el: paginationEl, clickable: true }
+    }
+
+    new Swiper(el, options)
+  })
+</script>
+
+<style is:global>
+  @import "swiper/css";
+  @import "swiper/css/navigation";
+  @import "swiper/css/pagination";
+
+  [data-slot="swiper-pagination"] {
+    position: relative !important;
+    inset: auto !important;
+    margin-top: calc(var(--spacing) * 4);
+  }
+
+  [data-slot="swiper"] .swiper-pagination {
+    bottom: auto !important;
+  }
+
+  [data-slot="swiper-previous"],
+  [data-slot="swiper-next"] {
+    display: inline-flex;
+  }
+
+  [data-slot="swiper-previous"].swiper-button-lock,
+  [data-slot="swiper-next"].swiper-button-lock {
+    display: inline-flex;
+  }
+
+  [data-slot="swiper-previous"].swiper-button-disabled,
+  [data-slot="swiper-next"].swiper-button-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+</style>

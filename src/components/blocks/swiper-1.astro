@@ -1,0 +1,108 @@
+---
+import { Button } from "@/components/ui/button"
+import { Icon } from "@/components/ui/icon"
+import { Image } from "@/components/ui/image"
+import {
+  Section,
+  SectionActions,
+  SectionContent,
+  SectionProse,
+} from "@/components/ui/section"
+import {
+  Swiper,
+  SwiperContent,
+  SwiperNext,
+  SwiperPagination,
+  SwiperPrevious,
+  SwiperSlide,
+} from "@/components/ui/swiper"
+import {
+  Tile,
+  TileContent,
+  TileDescription,
+  TileMedia,
+  TileTitle,
+} from "@/components/ui/tile"
+
+interface Props {
+  class?: string
+  id?: string
+  links?: {
+    icon?: string
+    text?: string
+    href?: string
+    target?: string
+  }[]
+  items?: {
+    title?: string
+    description?: string
+    image?: {
+      src: string
+      alt: string
+    }
+  }[]
+}
+
+const { class: className, id, links, items } = Astro.props
+---
+
+<Section class={className} id={id}>
+  <SectionContent class="items-center text-center">
+    <SectionProse size="lg">
+      <slot />
+    </SectionProse>
+    <SectionActions class="justify-center">
+      {
+        links?.map(({ icon, text, ...link }, i) => (
+          <Button variant={i === 0 ? "default" : "secondary"} {...link}>
+            {icon && <Icon name={icon} />}
+            {text}
+          </Button>
+        ))
+      }
+    </SectionActions>
+  </SectionContent>
+  <Swiper
+    class="pt-4"
+    options={{
+      slidesPerView: 1,
+      spaceBetween: 24,
+      speed: 500,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      loop: true,
+      breakpoints: {
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 },
+      },
+    }}
+  >
+    <SwiperContent>
+      {
+        items?.map(({ title, description, image }) => (
+          <SwiperSlide>
+            <Tile variant="floating" class="h-full">
+              <TileMedia class="overflow-hidden rounded-sm">
+                <Image
+                  sizes="(min-width: 1024px) 320px, (min-width: 768px) 50vw, 100vw"
+                  class="aspect-4/3 w-full object-cover"
+                  {...image}
+                />
+              </TileMedia>
+              <TileContent>
+                <TileTitle>{title}</TileTitle>
+                <TileDescription>{description}</TileDescription>
+              </TileContent>
+            </Tile>
+          </SwiperSlide>
+        ))
+      }
+    </SwiperContent>
+    <SwiperPrevious />
+    <SwiperNext />
+    <SwiperPagination/>
+  </Swiper>
+</Section>

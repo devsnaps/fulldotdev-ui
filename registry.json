@@ -72,7 +72,9 @@
           "type": "registry:ui"
         }
       ],
-      "registryDependencies": ["@fulldev/image"]
+      "registryDependencies": [
+        "@fulldev/image"
+      ]
     },
     {
       "name": "badge",
@@ -121,7 +123,10 @@
           "type": "registry:ui"
         }
       ],
-      "registryDependencies": ["@fulldev/button", "@fulldev/icon"]
+      "registryDependencies": [
+        "@fulldev/button",
+        "@fulldev/icon"
+      ]
     },
     {
       "name": "button",
@@ -270,7 +275,9 @@
           "type": "registry:ui"
         }
       ],
-      "registryDependencies": ["@fulldev/separator"]
+      "registryDependencies": [
+        "@fulldev/separator"
+      ]
     },
     {
       "name": "footer",
@@ -392,7 +399,10 @@
           "type": "registry:ui"
         }
       ],
-      "dependencies": ["lucide-static", "simple-icons"]
+      "dependencies": [
+        "lucide-static",
+        "simple-icons"
+      ]
     },
     {
       "name": "image",
@@ -513,7 +523,9 @@
           "type": "registry:ui"
         }
       ],
-      "registryDependencies": ["@fulldev/image"]
+      "registryDependencies": [
+        "@fulldev/image"
+      ]
     },
     {
       "name": "marquee",
@@ -550,7 +562,10 @@
           "type": "registry:ui"
         }
       ],
-      "registryDependencies": ["@fulldev/button", "@fulldev/icon"]
+      "registryDependencies": [
+        "@fulldev/button",
+        "@fulldev/icon"
+      ]
     },
     {
       "name": "native-carousel",
@@ -583,9 +598,49 @@
       ]
     },
     {
+      "name": "swiper",
+      "type": "registry:ui",
+      "dependencies": [
+        "swiper"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/swiper/swiper.astro",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/swiper/swiper-content.astro",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/swiper/swiper-slide.astro",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/swiper/swiper-previous.astro",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/swiper/swiper-next.astro",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/swiper/swiper-pagination.astro",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/swiper/index.ts",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "navigation-menu",
       "type": "registry:ui",
-      "dependencies": ["@data-slot/navigation-menu", "lucide-static"],
+      "dependencies": [
+        "@data-slot/navigation-menu",
+        "lucide-static"
+      ],
       "files": [
         {
           "path": "src/components/ui/navigation-menu/navigation-menu.astro",
@@ -814,7 +869,9 @@
           "type": "registry:ui"
         }
       ],
-      "registryDependencies": ["@fulldev/button"]
+      "registryDependencies": [
+        "@fulldev/button"
+      ]
     },
     {
       "name": "sidebar",
@@ -1127,7 +1184,10 @@
     {
       "name": "banner-1",
       "type": "registry:block",
-      "registryDependencies": ["@fulldev/banner", "@fulldev/icon"],
+      "registryDependencies": [
+        "@fulldev/banner",
+        "@fulldev/icon"
+      ],
       "files": [
         {
           "path": "src/components/blocks/banner-1.astro",
@@ -1138,7 +1198,10 @@
     {
       "name": "banner-2",
       "type": "registry:block",
-      "registryDependencies": ["@fulldev/banner", "@fulldev/icon"],
+      "registryDependencies": [
+        "@fulldev/banner",
+        "@fulldev/icon"
+      ],
       "files": [
         {
           "path": "src/components/blocks/banner-2.astro",
@@ -1934,7 +1997,10 @@
     {
       "name": "logos-1",
       "type": "registry:block",
-      "registryDependencies": ["@fulldev/logo", "@fulldev/section"],
+      "registryDependencies": [
+        "@fulldev/logo",
+        "@fulldev/section"
+      ],
       "files": [
         {
           "path": "src/components/blocks/logos-1.astro",
@@ -1960,7 +2026,10 @@
     {
       "name": "logos-3",
       "type": "registry:block",
-      "registryDependencies": ["@fulldev/logo", "@fulldev/section"],
+      "registryDependencies": [
+        "@fulldev/logo",
+        "@fulldev/section"
+      ],
       "files": [
         {
           "path": "src/components/blocks/logos-3.astro",
@@ -2223,6 +2292,24 @@
       ]
     },
     {
+      "name": "swiper-1",
+      "type": "registry:block",
+      "registryDependencies": [
+        "@fulldev/button",
+        "@fulldev/icon",
+        "@fulldev/image",
+        "@fulldev/section",
+        "@fulldev/swiper",
+        "@fulldev/tile"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/swiper-1.astro",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
       "name": "services-1",
       "type": "registry:block",
       "registryDependencies": [
@@ -2381,6 +2468,7 @@
         "@fulldev/textarea",
         "@fulldev/theme-toggle",
         "@fulldev/tile",
+        "@fulldev/swiper",
         "@fulldev/video"
       ]
     },
@@ -2464,6 +2552,7 @@
         "@fulldev/reviews-3",
         "@fulldev/reviews-4",
         "@fulldev/reviews-5",
+        "@fulldev/swiper-1",
         "@fulldev/services-1",
         "@fulldev/services-2",
         "@fulldev/services-3",
@@ -2482,7 +2571,9 @@
           "type": "registry:component"
         }
       ],
-      "registryDependencies": ["@fulldev/blocks"]
+      "registryDependencies": [
+        "@fulldev/blocks"
+      ]
     },
     {
       "name": "layout",
@@ -2493,7 +2584,9 @@
           "type": "registry:component"
         }
       ],
-      "registryDependencies": ["@fulldev/block"]
+      "registryDependencies": [
+        "@fulldev/block"
+      ]
     },
     {
       "name": "page",

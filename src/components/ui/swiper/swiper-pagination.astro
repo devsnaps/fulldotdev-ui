@@ -1,0 +1,15 @@
+---
+import type { HTMLAttributes } from "astro/types"
+
+import { cn } from "@/lib/utils"
+
+interface Props extends HTMLAttributes<"div"> {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<div
+  class={cn("swiper-pagination", className)}
+  data-slot="swiper-pagination"
+  {...props}
+/>

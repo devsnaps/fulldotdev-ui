@@ -1,0 +1,25 @@
+---
+import type { HTMLAttributes } from "astro/types"
+import ChevronRightIcon from "lucide-static/icons/chevron-right.svg"
+
+import { cn } from "@/lib/utils"
+
+interface Props extends Omit<HTMLAttributes<"button">, "type"> {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<button
+  type="button"
+  class={cn(
+    "border-input bg-background hover:bg-accent hover:text-accent-foreground absolute top-1/2 -right-12 z-10 flex size-8 -translate-y-1/2 items-center justify-center rounded-md border shadow-sm transition-colors disabled:pointer-events-none disabled:opacity-50 pointer-events-auto",
+    "group-data-[orientation=vertical]/swiper:-bottom-12 group-data-[orientation=vertical]/swiper:right-1/2 group-data-[orientation=vertical]/swiper:translate-x-1/2 group-data-[orientation=vertical]/swiper:translate-y-0 group-data-[orientation=vertical]/swiper:rotate-90",
+    className
+  )}
+  data-slot="swiper-next"
+  aria-label="Next slide"
+  {...props}
+>
+  <ChevronRightIcon class="size-4" aria-hidden="true" />
+  <span class="sr-only">Next slide</span>
+</button>

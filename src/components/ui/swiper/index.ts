@@ -1,0 +1,6 @@
+export { default as Swiper } from "./swiper.astro"
+export { default as SwiperContent } from "./swiper-content.astro"
+export { default as SwiperSlide } from "./swiper-slide.astro"
+export { default as SwiperPrevious } from "./swiper-previous.astro"
+export { default as SwiperNext } from "./swiper-next.astro"
+export { default as SwiperPagination } from "./swiper-pagination.astro"

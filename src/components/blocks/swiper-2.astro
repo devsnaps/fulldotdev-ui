@@ -79,7 +79,7 @@ const { class: className, id, list, links, items } = Astro.props
         }
       </SectionActions>
     </SectionContent>
-    <SectionMedia>
+    <SectionMedia class="rounded-none">
       <Swiper
         class="w-full"
         options={{
@@ -98,8 +98,8 @@ const { class: className, id, list, links, items } = Astro.props
           {
             items?.map(({ title, description, image }) => (
               <SwiperSlide>
-                <Tile variant="floating" class="h-full rounded-lg">
-                  <TileMedia class="overflow-hidden rounded-lg">
+                <Tile>
+                  <TileMedia class="overflow-hidden rounded-none">
                     <Image
                       sizes="(min-width: 1536px) 640px, (min-width: 1024px) 50vw, 100vw"
                       class="aspect-4/3 w-full object-cover"
@@ -115,7 +115,6 @@ const { class: className, id, list, links, items } = Astro.props
             ))
           }
         </SwiperContent>
-        <SwiperPagination />
       </Swiper>
     </SectionMedia>
   </SectionSplit>

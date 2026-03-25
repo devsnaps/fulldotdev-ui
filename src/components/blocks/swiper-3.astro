@@ -124,7 +124,7 @@ const slides =
             slides.map((slide) => (
               <SwiperSlide>
                 <figure>
-                  <div class="h-80 [clip-path:polygon(0%_4%,100%_0%,100%_100%,0%_96%)] md:h-140 lg:h-100 xl:h-90">
+                  <div class="h-80 [clip-path:polygon(0%_4%,100%_0%,100%_100%,0%_96%)] md:h-140 lg:h-100 xl:h-80">
                     <Image
                       src={slide.image?.src}
                       alt={slide.image?.alt ?? slide.title ?? "Slide"}
@@ -143,7 +143,6 @@ const slides =
             ))
           }
         </SwiperContent>
-        <SwiperPagination />
       </Swiper>
     </SectionMedia>
   </SectionSplit>

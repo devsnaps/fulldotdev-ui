@@ -127,7 +127,7 @@ const slides =
                       class="size-full object-cover"
                     />
                   </div>
-                  <figcaption class="mt-3 w-full translate-y-0 opacity-100 transition-all duration-300 md:translate-y-5 md:opacity-0">
+                  <figcaption class="mt-3 w-full translate-y-5 opacity-0 transition-all duration-300 motion-reduce:transition-none">
                     <div class="bg-border h-px w-full" />
                     <span class="text-foreground block pt-2 text-sm font-medium">
                       {slide.title}
@@ -143,9 +143,65 @@ const slides =
   </SectionSplit>
 </Section>
 
-<style is:global>
-  .swiper-hero .swiper-slide-active figcaption {
-    opacity: 1;
-    transform: translateY(0);
+<script is:inline>
+  const initSwiper3CaptionMotion = () => {
+    document.querySelectorAll(".swiper-hero").forEach((root) => {
+      if (root.dataset.captionMotionInitialized === "true") return
+      root.dataset.captionMotionInitialized = "true"
+
+      const setCaptionState = (caption, isVisible) => {
+        caption.classList.toggle("opacity-0", !isVisible)
+        caption.classList.toggle("translate-y-5", !isVisible)
+        caption.classList.toggle("opacity-100", isVisible)
+        caption.classList.toggle("translate-y-0", isVisible)
+      }
+
+      const hideAll = () => {
+        root.querySelectorAll(".swiper-slide figcaption").forEach((caption) => {
+          setCaptionState(caption, false)
+        })
+      }
+
+      const showActive = () => {
+        const active = root.querySelector(".swiper-slide-active figcaption")
+        if (active) setCaptionState(active, true)
+      }
+
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches
+
+      const bindSwiper = () => {
+        const swiper = root.swiper
+        if (!swiper) return false
+
+        const update = () => {
+          hideAll()
+          showActive()
+        }
+
+        update()
+
+        if (prefersReducedMotion) {
+          swiper.on("slideChange", update)
+        } else {
+          swiper.on("slideChangeTransitionStart", hideAll)
+          swiper.on("slideChangeTransitionEnd", showActive)
+        }
+
+        return true
+      }
+
+      if (bindSwiper()) return
+
+      let attempts = 0
+      const timer = setInterval(() => {
+        attempts += 1
+        if (bindSwiper() || attempts > 20) clearInterval(timer)
+      }, 100)
+    })
   }
-</style>
+
+  document.addEventListener("DOMContentLoaded", initSwiper3CaptionMotion)
+  document.addEventListener("astro:page-load", initSwiper3CaptionMotion)
+</script>

@@ -35,7 +35,7 @@ sections:
         href: /blocks/product/
       - text: Products (5)
         href: /blocks/products/
-      - text: Projects (2)
+      - text: Projects (3)
         href: /blocks/projects/
       - text: Reviews (5)
         href: /blocks/reviews/

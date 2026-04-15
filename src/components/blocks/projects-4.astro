@@ -1,0 +1,107 @@
+---
+import imagePlaceholder from "@/assets/image-placeholder.webp"
+import { Badge } from "@/components/ui/badge"
+import { Image } from "@/components/ui/image"
+import { Section, SectionContent, SectionProse } from "@/components/ui/section"
+import {
+  Tile,
+  TileContent,
+  TileDescription,
+  TileMedia,
+  TileSplit,
+  TileTitle,
+} from "@/components/ui/tile"
+
+interface Props {
+  class?: string
+  id?: string
+}
+
+const { class: className, id } = Astro.props
+
+const items = [
+  {
+    href: "#",
+    tagline: "Lorem ipsum",
+    title: "Lorem ipsum dolor sit amet",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    list: ["Lorem", "Ipsum", "Dolor"],
+    image: {
+      src: imagePlaceholder,
+      alt: "Lorem ipsum",
+    },
+  },
+  {
+    href: "#",
+    tagline: "Lorem ipsum",
+    title: "Consectetur adipiscing elit",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    list: ["Sit amet", "Consectetur", "Adipiscing"],
+    image: {
+      src: imagePlaceholder,
+      alt: "Lorem ipsum",
+    },
+  },
+  {
+    href: "#",
+    tagline: "Lorem ipsum",
+    title: "Sed do eiusmod tempor",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    list: ["Eiusmod", "Tempor", "Incididunt"],
+    image: {
+      src: imagePlaceholder,
+      alt: "Lorem ipsum",
+    },
+  },
+]
+---
+
+<Section class={className} id={id}>
+  <SectionContent>
+    <SectionProse>
+      <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+    </SectionProse>
+    {
+      items.map(({ href, tagline, title, description, list, image }, index) => (
+        <Tile href={href} variant="floating" class="rounded-xl p-0">
+          <TileSplit
+            stack="media-first"
+            reverse={index % 2 === 0}
+            class="min-h-80 grid-cols-1 gap-0 lg:min-h-105 lg:grid-cols-2"
+          >
+            <TileContent class="justify-center gap-5 p-10 lg:p-14">
+              <TileDescription variant="kicker">{tagline}</TileDescription>
+              <TileTitle variant="display">{title}</TileTitle>
+              <TileDescription variant="lead">{description}</TileDescription>
+              <div class="flex flex-wrap gap-2">
+                {list.slice(0, 3).map((entry) => (
+                  <Badge
+                    variant="outline"
+                    class="h-auto rounded-xl px-3 py-1 text-sm"
+                  >
+                    {entry}
+                  </Badge>
+                ))}
+              </div>
+            </TileContent>
+            <TileMedia class="size-full rounded-none">
+              <Image
+                class="size-full object-cover"
+                sizes="(1536px) 768px, (1024px) 50vw, 100vw"
+                src={image.src}
+                alt={image.alt}
+              />
+            </TileMedia>
+          </TileSplit>
+        </Tile>
+      ))
+    }
+  </SectionContent>
+</Section>

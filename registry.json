@@ -2126,6 +2126,42 @@
       ]
     },
     {
+      "name": "projects-1",
+      "type": "registry:block",
+      "registryDependencies": [
+        "@fulldev/badge",
+        "@fulldev/button",
+        "@fulldev/icon",
+        "@fulldev/image",
+        "@fulldev/section",
+        "@fulldev/tile"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/projects-1.astro",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
+      "name": "projects-2",
+      "type": "registry:block",
+      "registryDependencies": [
+        "@fulldev/badge",
+        "@fulldev/button",
+        "@fulldev/icon",
+        "@fulldev/image",
+        "@fulldev/section",
+        "@fulldev/tile"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/projects-2.astro",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
       "name": "reviews-1",
       "type": "registry:block",
       "registryDependencies": [
@@ -2459,6 +2495,8 @@
         "@fulldev/products-3",
         "@fulldev/products-4",
         "@fulldev/products-5",
+        "@fulldev/projects-1",
+        "@fulldev/projects-2",
         "@fulldev/reviews-1",
         "@fulldev/reviews-2",
         "@fulldev/reviews-3",

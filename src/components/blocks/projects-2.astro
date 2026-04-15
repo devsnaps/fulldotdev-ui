@@ -1,0 +1,116 @@
+---
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Icon } from "@/components/ui/icon"
+import { Image } from "@/components/ui/image"
+import {
+  Section,
+  SectionActions,
+  SectionContent,
+  SectionGrid,
+  SectionProse,
+  SectionSplit,
+} from "@/components/ui/section"
+import {
+  Tile,
+  TileActions,
+  TileContent,
+  TileDescription,
+  TileMedia,
+  TileTitle,
+} from "@/components/ui/tile"
+
+interface Props {
+  class?: string
+  id?: string
+  links?: {
+    icon?: string
+    text?: string
+    href?: string
+    target?: string
+  }[]
+  items?: {
+    tagline?: string
+    title?: string
+    description?: string
+    list?: string[]
+    image?: {
+      src: string
+      alt: string
+    }
+    links?: {
+      icon?: string
+      text?: string
+      href?: string
+      target?: string
+    }[]
+  }[]
+}
+
+const { class: className, id, links, items } = Astro.props
+---
+
+<Section class={className} id={id}>
+  <SectionSplit
+    class="items-start lg:grid-cols-[1fr_2fr] lg:*:sticky lg:*:top-[calc(var(--section-py)+var(--header-height,0px))]"
+  >
+    <SectionContent>
+      <SectionProse class="text-balance!">
+        <slot />
+      </SectionProse>
+      <SectionActions>
+        {
+          links?.map(({ icon, text, ...link }, i) => (
+            <Button variant={i === 0 ? "outline" : "ghost"} {...link}>
+              {icon && <Icon name={icon} />}
+              {text}
+            </Button>
+          ))
+        }
+      </SectionActions>
+    </SectionContent>
+    <SectionGrid class="lg:grid-cols-2">
+      {
+        items?.map(({ tagline, title, description, list, image, links }) => (
+          <Tile variant="floating" class="gap-4">
+            {image && (
+              <TileMedia class="-mx-6 -mt-6 aspect-4/3 rounded-b-none">
+                <Image
+                  class="size-full! object-cover"
+                  sizes="600px"
+                  {...image}
+                />
+              </TileMedia>
+            )}
+            <TileContent>
+              <TileDescription class="text-primary text-xs font-medium">
+                {tagline}
+              </TileDescription>
+              <TileTitle>{title}</TileTitle>
+              <TileDescription>{description}</TileDescription>
+            </TileContent>
+            {list?.length && (
+              <div class="flex flex-wrap gap-2">
+                {list.slice(0, 4).map((entry) => (
+                  <Badge variant="outline">{entry}</Badge>
+                ))}
+              </div>
+            )}
+            <TileActions class="mt-1">
+              {links?.map(({ icon, text, ...link }, i) => (
+                <Button
+                  variant={i === 0 ? "outline" : "ghost"}
+                  size="sm"
+                  {...link}
+                >
+                  {icon && <Icon name={icon} />}
+                  {text}
+                </Button>
+              ))}
+            </TileActions>
+          </Tile>
+        ))
+      }
+    </SectionGrid>
+  </SectionSplit>
+</Section>

@@ -1,0 +1,59 @@
+---
+import type { HTMLAttributes } from "astro/types"
+import { cva, type VariantProps } from "class-variance-authority"
+
+import { Badge, type BadgeVariantProps } from "@/components/ui/badge"
+import { cn } from "@/lib/utils"
+
+const variants = cva("", {
+  variants: {
+    variant: {
+      default: "",
+      pill: "h-auto rounded-xl px-3 py-1 text-sm",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+})
+
+interface Props
+  extends HTMLAttributes<"div">,
+    VariantProps<typeof variants> {
+  items?: string[]
+  limit?: number
+  badgeVariant?: BadgeVariantProps["variant"]
+  badgeClass?: string
+}
+
+const {
+  class: className,
+  items = [],
+  limit,
+  variant,
+  badgeVariant = "outline",
+  badgeClass,
+  ...props
+} = Astro.props
+
+const normalizedLimit = limit === undefined ? undefined : Math.max(0, limit)
+const visibleItems =
+  normalizedLimit === undefined ? items : items.slice(0, normalizedLimit)
+---
+
+{
+  visibleItems.length > 0 && (
+    <div
+      data-slot="tile-tag-list"
+      data-variant={variant}
+      class={cn("flex flex-wrap gap-2", className)}
+      {...props}
+    >
+      {visibleItems.map((entry) => (
+        <Badge variant={badgeVariant} class={cn(variants({ variant }), badgeClass)}>
+          {entry}
+        </Badge>
+      ))}
+    </div>
+  )
+}

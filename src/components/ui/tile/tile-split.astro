@@ -3,13 +3,43 @@ import type { HTMLAttributes } from "astro/types"
 
 import { cn } from "@/lib/utils"
 
-interface Props extends HTMLAttributes<"div"> {}
+interface Props extends HTMLAttributes<"div"> {
+  reverse?: boolean
+  stack?: "natural" | "media-first" | "content-first"
+}
 
-const { class: className, ...props } = Astro.props
+const {
+  class: className,
+  reverse = false,
+  stack = "natural",
+  ...props
+} = Astro.props
+
+const stackClasses = {
+  natural: "",
+  "media-first":
+    "[&_[data-slot=tile-content]]:order-2 [&_[data-slot=tile-media]]:order-1",
+  "content-first":
+    "[&_[data-slot=tile-content]]:order-1 [&_[data-slot=tile-media]]:order-2",
+}
+
+const reverseClasses = {
+  natural:
+    "lg:[&_[data-slot=tile-content]]:order-1 lg:[&_[data-slot=tile-media]]:order-2",
+  "media-first":
+    "lg:[&_[data-slot=tile-content]]:order-1 lg:[&_[data-slot=tile-media]]:order-2",
+  "content-first":
+    "lg:[&_[data-slot=tile-content]]:order-2 lg:[&_[data-slot=tile-media]]:order-1",
+}
 ---
 
 <div
-  class={cn("grid size-full grid-cols-[2fr_3fr] gap-6 *:w-full", className)}
+  class={cn(
+    "grid size-full grid-cols-[2fr_3fr] gap-6 *:w-full",
+    stackClasses[stack],
+    reverse && reverseClasses[stack],
+    className
+  )}
   data-slot="tile-split"
   {...props}
 >

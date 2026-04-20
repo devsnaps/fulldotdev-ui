@@ -1,0 +1,44 @@
+---
+import { Badge } from "@/components/ui/badge"
+import { Image } from "@/components/ui/image"
+import {
+  Section,
+  SectionActions,
+  SectionContent,
+  SectionMedia,
+  SectionProse,
+  SectionSplit,
+} from "@/components/ui/section"
+
+interface Props {
+  class?: string
+  id?: string
+  image?: {
+    src: string
+    alt: string
+  }
+  items?: {
+    title?: string
+  }[]
+}
+
+const { class: className, id, image, items } = Astro.props
+---
+
+<Section class={className} id={id} variant="floating">
+  <SectionSplit class="lg:items-center">
+    <SectionContent>
+      <SectionProse>
+        <slot />
+      </SectionProse>
+      <SectionActions>
+        {items?.map(({ title }) => <Badge variant="outline">{title}</Badge>)}
+      </SectionActions>
+    </SectionContent>
+    <SectionMedia
+      class="order-first -mx-(--section-px) -mt-(--section-py) rounded-none lg:order-first lg:-my-(--section-py) lg:mr-0"
+    >
+      <Image sizes="(1536px) 768px, (1024px) 50vw, 100vw" {...image} />
+    </SectionMedia>
+  </SectionSplit>
+</Section>

@@ -1,4 +1,5 @@
 ---
+import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { Image } from "@/components/ui/image"
 import {
@@ -25,9 +26,11 @@ interface Props {
 const { class: className, id, image, items } = Astro.props
 ---
 
-<Section class={className} id={id} variant="floating">
-  <SectionSplit class="lg:items-center">
-    <SectionContent>
+<Section class={cn("gap-0 px-0 py-0", className)} id={id} variant="floating">
+  <SectionSplit class="gap-0 lg:items-stretch">
+    <SectionContent
+      class="w-full max-w-xl px-(--section-px) py-(--section-py) lg:self-center"
+    >
       <SectionProse>
         <slot />
       </SectionProse>
@@ -35,9 +38,7 @@ const { class: className, id, image, items } = Astro.props
         {items?.map(({ title }) => <Badge variant="outline">{title}</Badge>)}
       </SectionActions>
     </SectionContent>
-    <SectionMedia
-      class="order-first -mx-(--section-px) -mt-(--section-py) rounded-none lg:order-first lg:-my-(--section-py) lg:mr-0"
-    >
+    <SectionMedia class="order-first rounded-none">
       <Image sizes="(1536px) 768px, (1024px) 50vw, 100vw" {...image} />
     </SectionMedia>
   </SectionSplit>

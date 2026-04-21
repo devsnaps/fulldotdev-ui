@@ -1,0 +1,88 @@
+---
+import { cn } from "@/lib/utils"
+import { Avatar, AvatarImage } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent } from "@/components/ui/card"
+import { Icon } from "@/components/ui/icon"
+import {
+  Item,
+  ItemContent,
+  ItemDescription,
+  ItemMedia,
+  ItemTitle,
+} from "@/components/ui/item"
+import {
+  Section,
+  SectionContent,
+  SectionProse,
+  SectionSplit,
+} from "@/components/ui/section"
+
+interface Props {
+  class?: string
+  id?: string
+  step?: string | number
+  title?: string
+  description?: string
+  item?: {
+    image?: {
+      src: string
+      alt: string
+    }
+    title?: string
+    description?: string
+  }
+}
+
+const { class: className, id, step, title, description, item } = Astro.props
+---
+
+<Section
+  class={cn("bg-muted/35 gap-8 px-4 py-4 lg:px-8 lg:py-8", className)}
+  id={id}
+  variant="floating"
+>
+  <SectionSplit
+    class="gap-5 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-stretch"
+  >
+    <SectionContent
+      class="h-full justify-between rounded-2xl px-4 py-4 md:min-h-120 md:px-8 md:py-8"
+    >
+      <Badge
+        variant="secondary"
+        class="bg-primary/15 text-primary size-20 rounded-2xl border-none text-4xl font-medium"
+      >
+        {step}
+      </Badge>
+      <SectionProse>
+        {title && <h1>{title}</h1>}
+      </SectionProse>
+    </SectionContent>
+
+    <Card class="bg-muted/70 h-full rounded-3xl py-0 shadow-none ring-0">
+      <CardContent
+        class="flex h-full flex-col justify-between gap-8 p-6 md:gap-12 md:p-10"
+      >
+        <Icon class="text-primary/65 size-10" name="quote" />
+        <SectionProse>
+          {description && <h2>{description}</h2>}
+        </SectionProse>
+        <Item class="p-0">
+          <ItemMedia>
+            <Avatar class="size-16">
+              <AvatarImage src={item?.image?.src} alt={item?.image?.alt} />
+            </Avatar>
+          </ItemMedia>
+          <ItemContent>
+            <ItemTitle class="text-2xl leading-none font-semibold"
+              >{item?.title}</ItemTitle
+            >
+            <ItemDescription class="text-foreground/60 line-clamp-none text-lg"
+              >{item?.description}</ItemDescription
+            >
+          </ItemContent>
+        </Item>
+      </CardContent>
+    </Card>
+  </SectionSplit>
+</Section>

@@ -13,7 +13,7 @@ sections:
         href: /blocks/banner/
       - text: Contact (3)
         href: /blocks/contact/
-      - text: Content (10)
+      - text: Content (11)
         href: /blocks/content/
       - text: Cta (8)
         href: /blocks/cta/
@@ -27,7 +27,7 @@ sections:
         href: /blocks/header/
       - text: Hero (13)
         href: /blocks/hero/
-      - text: Logos (3)
+      - text: Logos (4)
         href: /blocks/logos/
       - text: Pricing (3)
         href: /blocks/pricings/

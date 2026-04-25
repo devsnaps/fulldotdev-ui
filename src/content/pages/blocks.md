@@ -13,7 +13,7 @@ sections:
         href: /blocks/banner/
       - text: Contact (3)
         href: /blocks/contact/
-      - text: Content (11)
+      - text: Content (12)
         href: /blocks/content/
       - text: Cta (8)
         href: /blocks/cta/

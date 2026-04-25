@@ -14,6 +14,7 @@ refs:
   - /src/content/pages/blocks/content-9.md
   - /src/content/pages/blocks/content-10.md
   - /src/content/pages/blocks/content-11.md
+  - /src/content/pages/blocks/content-12.md
 seo:
   title: Content blocks - fulldev/ui
   description: Here you can find all the content blocks available in the library.

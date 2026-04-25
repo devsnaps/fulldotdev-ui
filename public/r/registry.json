@@ -1298,6 +1298,23 @@
       ]
     },
     {
+      "name": "content-12",
+      "type": "registry:block",
+      "registryDependencies": [
+        "@fulldev/accordion",
+        "@fulldev/badge",
+        "@fulldev/button",
+        "@fulldev/icon",
+        "@fulldev/section"
+      ],
+      "files": [
+        {
+          "path": "src/components/blocks/content-12.astro",
+          "type": "registry:block"
+        }
+      ]
+    },
+    {
       "name": "cta-1",
       "type": "registry:block",
       "registryDependencies": [
@@ -2411,6 +2428,7 @@
         "@fulldev/content-4",
         "@fulldev/content-5",
         "@fulldev/content-6",
+        "@fulldev/content-12",
         "@fulldev/cta-1",
         "@fulldev/cta-2",
         "@fulldev/cta-3",

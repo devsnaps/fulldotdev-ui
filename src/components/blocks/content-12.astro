@@ -1,0 +1,61 @@
+---
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+import { Badge } from "@/components/ui/badge"
+import {
+  Section,
+  SectionContent,
+  SectionProse,
+  SectionSplit,
+} from "@/components/ui/section"
+
+interface Props {
+  class?: string
+  id?: string
+  items?: {
+    tagline?: string
+    title?: string
+    description?: string
+  }[]
+}
+
+const { class: className, id, items } = Astro.props
+---
+
+<Section class={className} id={id}>
+  <SectionSplit
+    class="gap-10 @5xl:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] @5xl:gap-16"
+  >
+    <SectionContent class="max-w-md @5xl:sticky @5xl:top-24 @5xl:self-start">
+      <SectionProse class="max-w-md">
+        <slot />
+      </SectionProse>
+    </SectionContent>
+    <Accordion>
+      {
+        items?.map(({ tagline, title, description }) => (
+          <AccordionItem>
+            <AccordionTrigger class="cursor-pointer items-center gap-4 py-6 text-base font-medium hover:no-underline @md:text-lg">
+              <div class="flex min-w-0 items-center gap-4">
+                <Badge
+                  variant="secondary"
+                  class="bg-foreground text-background group-open/accordion-item:bg-primary group-open/accordion-item:text-primary-foreground size-12 shrink-0 rounded-full border-none px-0 text-sm font-semibold"
+                >
+                  {tagline}
+                </Badge>
+                <span class="min-w-0 text-balance">{title}</span>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent class="text-muted-foreground pb-6 pl-16 text-base leading-8">
+              <div class="max-w-2xl text-pretty">{description}</div>
+            </AccordionContent>
+          </AccordionItem>
+        ))
+      }
+    </Accordion>
+  </SectionSplit>
+</Section>

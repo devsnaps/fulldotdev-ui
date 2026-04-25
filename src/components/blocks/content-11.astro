@@ -45,41 +45,43 @@ const { class: className, id, step, title, description, item } = Astro.props
   <SectionSplit
     class="gap-5 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-stretch"
   >
-    <SectionContent
-      class="h-full justify-between rounded-2xl px-4 py-4 md:min-h-120 md:px-8 md:py-8"
-    >
+    <SectionContent class="h-full justify-between rounded-2xl md:min-h-100">
       <Badge
         variant="secondary"
-        class="bg-primary/15 text-primary size-20 rounded-2xl border-none text-4xl font-medium"
+        class="bg-primary/15 text-primary size-20 rounded-lg border-none text-4xl font-medium"
       >
         {step}
       </Badge>
-      <SectionProse>
-        {title && <h1>{title}</h1>}
+      <SectionProse class="text-6xl font-light">
+        {title}
       </SectionProse>
     </SectionContent>
 
-    <Card class="bg-muted/70 h-full rounded-3xl py-0 shadow-none ring-0">
+    <Card class="bg-muted/70 h-full rounded-xl py-0 shadow-none ring-0">
       <CardContent
         class="flex h-full flex-col justify-between gap-8 p-6 md:gap-12 md:p-10"
       >
-        <Icon class="text-primary/65 size-10" name="quote" />
-        <SectionProse>
-          {description && <h2>{description}</h2>}
+        <SectionProse class="text-4xl font-light">
+          <Icon class="text-primary/65 mb-10 size-10 rotate-180" name="quote" />
+          {description}
         </SectionProse>
         <Item class="p-0">
-          <ItemMedia>
+          <ItemMedia
+            class="group-has-data-[slot=item-description]/item:translate-y-0 group-has-data-[slot=item-description]/item:self-center"
+          >
             <Avatar class="size-16">
               <AvatarImage src={item?.image?.src} alt={item?.image?.alt} />
             </Avatar>
           </ItemMedia>
-          <ItemContent>
-            <ItemTitle class="text-2xl leading-none font-semibold"
-              >{item?.title}</ItemTitle
+          <ItemContent class="justify-center gap-2">
+            <ItemTitle class="w-full text-xl leading-tight font-semibold">
+              {item?.title}
+            </ItemTitle>
+            <ItemDescription
+              class="text-foreground/60 line-clamp-none text-base leading-tight"
             >
-            <ItemDescription class="text-foreground/60 line-clamp-none text-lg"
-              >{item?.description}</ItemDescription
-            >
+              {item?.description}
+            </ItemDescription>
           </ItemContent>
         </Item>
       </CardContent>
